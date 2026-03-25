@@ -1,0 +1,139 @@
+
+/* RESET */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* BODY */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: white;
+    background-color: #5a0000;
+    background-image: 
+        linear-gradient(45deg, #4a0000 25%, transparent 25%, transparent 75%, #4a0000 75%, #4a0000),
+        linear-gradient(45deg, #4a0000 25%, transparent 25%, transparent 75%, #4a0000 75%, #4a0000);
+    background-size: 40px 40px;
+    background-position: 0 0, 20px 20px;
+    
+    /* Flexbox para centralizar o formulário na tela */
+    display: flex;
+    justify-content: center; 
+    align-items: center;     
+    min-height: 100vh;
+}
+
+/* --- ESTILOS DO CARTÃO DE LOGIN --- */
+.login-container {
+    background-color: #1a1a1a; 
+    padding: 40px;
+    border-radius: 8px;
+    border: 2px solid #c00; 
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.9), 0 0 15px rgba(200, 0, 0, 0.3); 
+    width: 100%;
+    max-width: 400px;
+}
+
+.error-message {
+    background-color: #ff4444;
+    color: white;
+    padding: 10px;
+    border-radius: 4px;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.login-form h2 {
+    font-family: 'Special Elite', serif; 
+    text-align: center;
+    margin-bottom: 30px;
+    color: white;
+    font-size: 36px;
+    letter-spacing: 2px;
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8);
+}
+
+.input-group {
+    margin-bottom: 20px;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 8px;
+    color: #ffcccc; 
+    font-family: 'Roboto', sans-serif;
+    font-size: 15px;
+    letter-spacing: 1px;
+    font-weight: 300;
+}
+
+/* Campos de entrada com visual dark */
+.input-group input {
+    width: 100%;
+    padding: 12px;
+    background-color: rgba(0, 0, 0, 0.6);
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 6px;
+    outline: none;
+    font-family: 'Roboto', sans-serif;
+    font-size: 15px;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.input-group input::placeholder {
+    color: #666;
+}
+
+/* Efeito ao clicar no campo igual ao hover dos filmes */
+.input-group input:focus {
+    border-color: rgba(255, 100, 100, 0.6);
+    box-shadow: 0 0 8px rgba(200, 0, 0, 0.5);
+}
+
+/* Botão seguindo o estilo do Aside/Header */
+.btn-login {
+    width: 100%;
+    padding: 14px;
+    background-color: #8b0000; 
+    color: white;
+    font-family: 'Special Elite', monospace;
+    border: 2px solid #c00;
+    border-radius: 6px;
+    font-size: 20px;
+    letter-spacing: 2px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s, box-shadow 0.3s;
+    margin-top: 10px;
+}
+
+.btn-login:hover {
+    background-color: #a00000;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 16px rgba(200, 0, 0, 0.6);
+    border-color: rgba(255, 80, 80, 0.8);
+}
+
+/* Link inferior seguindo as cores do Aside */
+.signup-link {
+    text-align: center;
+    margin-top: 25px;
+    color: #ccc;
+    font-family: 'Roboto', sans-serif;
+    font-size: 14px;
+}
+
+.signup-link a {
+    color: #ff9999;
+    font-family: 'Special Elite', monospace;
+    text-decoration: none;
+    letter-spacing: 1px;
+    margin-left: 6px;
+    font-size: 15px;
+    transition: color 0.2s;
+}
+
+.signup-link a:hover {
+    color: white;
+}

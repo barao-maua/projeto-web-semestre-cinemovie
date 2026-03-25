@@ -1,0 +1,247 @@
+/* RESET */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* BODY */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: white;
+    background-color: #5a0000;
+    background-image: 
+        linear-gradient(45deg, #4a0000 25%, transparent 25%, transparent 75%, #4a0000 75%, #4a0000),
+        linear-gradient(45deg, #4a0000 25%, transparent 25%, transparent 75%, #4a0000 75%, #4a0000);
+    background-size: 40px 40px;
+    background-position: 0 0, 20px 20px;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* HEADER */
+header {
+    background-color: #8b0000;
+    background-image: 
+        radial-gradient(ellipse at 20% 50%, rgba(180,0,0,0.4) 0%, transparent 60%),
+        radial-gradient(ellipse at 80% 50%, rgba(100,0,0,0.5) 0%, transparent 60%);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 30px;
+    min-height: 160px;
+    border-bottom: 3px solid #c00;
+}
+
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+}
+
+.header-left img {
+    width: 110px;
+    height: auto;
+    filter: drop-shadow(2px 2px 6px rgba(0,0,0,0.7));
+}
+
+.header-title h1 {
+    font-family: 'Special Elite', serif;
+    font-size: 52px;
+    color: white;
+    letter-spacing: 2px;
+    text-shadow: 2px 2px 8px rgba(0,0,0,0.8);
+    line-height: 1;
+}
+
+.tagline {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 300;
+    font-size: 15px;
+    color: #ffcccc;
+    letter-spacing: 1px;
+    display: block;
+    margin-top: 4px;
+}
+
+/* BANNERS NO HEADER */
+.header-banners {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.banner-img {
+    width: 90px;
+    height: 130px;
+    object-fit: cover;
+    border-radius: 8px;
+    border: 2px solid rgba(255,255,255,0.15);
+    box-shadow: 4px 4px 16px rgba(0,0,0,0.7);
+    transition: transform 0.2s, border-color 0.2s;
+}
+
+.banner-img:hover {
+    transform: scale(1.08) translateY(-4px);
+    border-color: rgba(255,100,100,0.6);
+}
+
+/* MENU / NAV */
+nav {
+    background-color: #1a1a1a;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 40px;
+    border-bottom: 2px solid #c00;
+}
+
+.nav-links {
+    display: flex;
+    gap: 40px;
+}
+
+nav a {
+    text-decoration: none;
+    color: #ccc;
+    font-family: 'Special Elite', monospace;
+    font-size: 17px;
+    letter-spacing: 1px;
+    transition: color 0.2s;
+}
+
+nav a:hover,
+nav a.active {
+    color: white;
+}
+
+nav a.active {
+    border-bottom: 2px solid white;
+    padding-bottom: 2px;
+}
+
+.nav-right {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.entrar {
+    color: #ccc !important;
+    font-size: 16px;
+}
+
+.user-icon {
+    font-size: 20px;
+    color: #ccc;
+}
+
+/* CONTAINER PRINCIPAL */
+.container {
+    display: flex;
+    flex: 1;
+    width: 100%;
+}
+
+/* SIDEBAR */
+aside {
+    width: 200px;
+    min-width: 200px;
+    background-color: #8b0000;
+    background-image: linear-gradient(180deg, #a00000 0%, #6b0000 100%);
+    padding: 30px 20px;
+    border-right: 2px solid #c00;
+}
+
+aside h3 {
+    font-family: 'Special Elite', serif;
+    color: white;
+    font-size: 20px;
+    margin-bottom: 25px;
+    letter-spacing: 1px;
+}
+
+aside ul {
+    list-style: none;
+}
+
+aside li {
+    margin-bottom: 18px;
+}
+
+aside a {
+    text-decoration: none;
+    color: #ff9999;
+    font-family: 'Special Elite', monospace;
+    font-size: 16px;
+    letter-spacing: 1px;
+    transition: color 0.2s;
+}
+
+aside a:hover {
+    color: white;
+}
+
+/* CONTEÚDO / GRID DE FILMES */
+.conteudo {
+    flex: 1;
+    padding: 30px;
+}
+
+.filmes-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    padding: 10px;
+    justify-content: flex-start;
+}
+
+.filme-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 160px;
+    cursor: pointer;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.filme-card:hover {
+    transform: scale(1.08) translateY(-6px);
+}
+
+.filme-card img {
+    width: 160px;
+    height: 230px;
+    object-fit: cover;
+    border-radius: 10px;
+    border: 2px solid rgba(255,255,255,0.15);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.8);
+    transition: box-shadow 0.3s, border-color 0.3s;
+}
+
+.filme-card:hover img {
+    box-shadow: 0 12px 32px rgba(200,0,0,0.6);
+    border-color: rgba(255,80,80,0.5);
+}
+
+.filme-titulo {
+    font-family: 'Special Elite', monospace;
+    color: white;
+    font-size: 14px;
+    text-align: center;
+    margin-top: 10px;
+    letter-spacing: 0.5px;
+    text-shadow: 1px 1px 4px rgba(0,0,0,0.8);
+}
+
+/* FOOTER */
+footer {
+    background-color: #111;
+    color: #aaa;
+    text-align: center;
+    padding: 18px;
+    font-family: 'Roboto', sans-serif;
+    font-size: 14px;
+    border-top: 2px solid #333;
+}

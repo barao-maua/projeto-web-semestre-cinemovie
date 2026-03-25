@@ -1,0 +1,85 @@
+{% load static %}   
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CineMovie - Zootopia 2</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <header class="navbar">
+        <div class="logo">
+            CineMovie
+        </div>
+        <nav class="nav-links">
+            <a href="{% url 'index' %}">Início</a>
+            <a href="#" class="active">Filmes</a>
+            <a href="#">Séries</a>
+            <a href="#">Sobre nós</a>
+        </nav>
+        <div class="user-login">
+            <a href="{% url 'login' %}">Entrar</a>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <section class="movie-poster">
+            <img src="{% static 'images/image 10.png' %}" alt="Pôster do filme Zootopia 2">
+        </section>
+
+        <section class="movie-info">
+            <p class="synopsis">
+                Zootopia 2 acompanha Judy Hopps e Nick Wilde em uma nova aventura pela cidade dos animais. Quando uma nova ameaça surge, eles devem trabalhar juntos novamente.
+                Duração: 105 min.            
+            </p>
+            <div class="movie-badges">
+                <span class="badge">Animação</span>
+                <span class="badge">Comédia</span>
+                <span class="badge">Aventura</span>
+            </div>
+
+            <div class="rating-box">
+                <span class="stars">★★★★★</span><span class="stars-gray"></span>
+                <span class="score">9.0/10</span>
+            </div>
+            <p class="duration">Duração: 105 min.</p>
+        </section>
+
+        <section class="movie-booking">
+            <h2 class="trailer-title">Zootopia 2 Trailer</h2>
+            
+            <a href="https://www.youtube.com/watch?v=lEzmc22PDRg" target="_blank" class="trailer-box">
+                <img src="{% static 'images/zootopia 2 trailer.jpg' %}" alt="Trailer" class="trailer-img">
+            </a>
+            
+            <div class="booking-labels">
+                <span><strong>Horários disponíveis:</strong></span>
+                <span><strong>Compre Ingressos!</strong></span>
+            </div>
+
+            <div class="schedules-container">
+                <div class="schedule-row">
+                    <div class="time-pill">
+                        <span class="time">10:30</span>
+                        <span class="type">3D</span>
+                    </div>
+                    <button class="btn-buy">COMPRAR<br>AGORA!</button>
+                </div>
+                <div class="schedule-row">
+                    <div class="time-pill">
+                        <span class="time">13:30</span>
+                        <span class="type">3D</span>
+                    </div>
+                    <button class="btn-buy">COMPRAR<br>AGORA!</button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <p>Copyright © 2026 CineMovie.</p>
+    </footer>
+</body>
+</html>

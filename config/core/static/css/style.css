@@ -1,0 +1,280 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: white;
+    /* Padrão geométrico simulando a textura da imagem */
+    background-color: #5a0000;
+    background-image: 
+        linear-gradient(45deg, #4a0000 25%, transparent 25%, transparent 75%, #4a0000 75%, #4a0000),
+        linear-gradient(45deg, #4a0000 25%, transparent 25%, transparent 75%, #4a0000 75%, #4a0000);
+    background-size: 40px 40px;
+    background-position: 0 0, 20px 20px;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* --- Cabeçalho --- */
+.navbar {
+    background-color: #3b0000; /* Vermelho escuro */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 40px;
+    border-bottom: 2px solid #2a0000;
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.nav-links {
+    display: flex;
+    gap: 30px;
+}
+
+.nav-links a {
+    color: #b05555;
+    text-decoration: none;
+    font-size: 18px;
+    transition: color 0.3s;
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+    color: white;
+}
+
+.user-login a {
+    color: #b05555;
+    text-decoration: none;
+    font-size: 16px;
+}
+
+.user-login a:hover {
+    color: white;
+}
+
+/* --- Conteúdo Principal --- */
+.main-content {
+    display: flex;
+    justify-content: center;
+    gap: 60px;
+    padding: 40px;
+    flex: 1;
+    width: 100%;       /* Ocupa a largura total */
+    max-width: 100%;    /* Remove o limite de 1200px */
+    margin: 0;
+}
+
+/* Coluna 1: Pôster */
+.movie-poster {
+    flex: 1;
+    max-width: 300px;
+}
+
+.movie-poster img {
+    width: 100%;
+    border-radius: 4px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+}
+
+/* Coluna 2: Informações (Texto Monoespaçado) */
+.movie-info {
+    flex: 1;
+    max-width: 350px;
+    font-family: 'Courier New', Courier, monospace;
+}
+.stars {
+    color: #FFD700; /* Cor Gold (Dourado) */
+    font-size: 20px;
+    text-shadow: 0 0 5px rgba(255, 215, 0, 0.5); /* Brilho suave */
+}
+
+/* Estrela vazia (Cinza para dar contraste) */
+.stars-gray {
+    color: #555; 
+    font-size: 20px;
+}
+
+.score {
+    margin-left: 10px;
+    font-family: 'Courier New', Courier, monospace;
+    color: white;
+}
+.synopsis {
+    font-size: 16px;
+    line-height: 1.5;
+    margin-bottom: 30px;
+    text-align: justify;
+}
+
+.duration {
+    font-size: 16px;
+}
+
+/* Coluna 3: Trailer e Ingressos */
+.movie-booking {
+    flex: 1;
+    max-width: 400px;
+    display: flex;
+    flex-direction: column;
+}
+
+.trailer-title {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 20px;
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.trailer-container iframe {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 9;
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.4);
+}
+
+.trailer-thumb {
+    width: 100%;
+    border-radius: 4px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.4);
+}
+
+.trailer-box {
+    display: block;
+    width: 100%;
+    max-width: 500px;
+    aspect-ratio: 16 / 9;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.4);
+}
+
+.trailer-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.3s ease;
+}
+
+.trailer-box:hover .trailer-img {
+    transform: scale(1.05);
+}
+
+.play-btn {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: transparent;
+    border: 3px solid rgba(255,255,255,0.7);
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    color: rgba(255,255,255,0.7);
+    font-size: 24px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+}
+
+.play-btn:hover {
+    border-color: white;
+    color: white;
+    transform: translate(-50%, -50%) scale(1.1);
+}
+
+/* Agendamentos e Ingressos */
+.booking-labels {
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+.schedules-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.schedule-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* O "Pílula" de Horário e Tipo */
+.time-pill {
+    display: flex;
+    width: 140px;
+    height: 45px;
+    border-radius: 8px;
+    overflow: hidden;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.time-pill .time {
+    background-color: #e0e0e0;
+    color: black;
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.time-pill .type {
+    background-color: #7b1e1e;
+    color: white;
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Botões de Comprar */
+.btn-buy {
+    background-color: #cc0000; /* Vermelho forte */
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 8px 20px;
+    font-weight: bold;
+    font-size: 14px;
+    text-align: center;
+    cursor: pointer;
+    width: 140px;
+    height: 45px;
+    transition: background-color 0.2s;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+}
+
+.btn-buy:hover {
+    background-color: #ff1a1a;
+}
+
+.single-line {
+    padding: 12px 20px; /* Ajuste para o botão de linha única */
+}
+
+/* --- Rodapé --- */
+.footer {
+    background-color: black;
+    color: white;
+    text-align: center;
+    padding: 15px;
+    font-size: 12px;
+    margin-top: auto;
+}
