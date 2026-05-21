@@ -10,10 +10,9 @@ export default function Estreia() {
   useEffect(() => {
     api.get('/filmes/')
       .then(r => {
-        const recentes = r.data
-          .filter(f => f.ano_lancamento >= 2024)
-          .sort((a, b) => b.ano_lancamento - a.ano_lancamento)
-        setFilmes(recentes)
+        const estreias = r.data
+          .filter(f => f.is_estreia)
+        setFilmes(estreias)
       })
       .catch(() => setFilmes([]))
       .finally(() => setCarregando(false))
@@ -28,18 +27,21 @@ export default function Estreia() {
         <p className="page-section-sub">Os filmes mais recentes em cartaz</p>
       </div>
 
-      <div className="home-grid" style={{ padding: '30px 40px' }}>
+      <div className="home-grid estreias-grid">
         {filmes.map(filme => (
           <div
             key={filme.id}
             className="filme-card"
             onClick={() => navigate(`/filme/${filme.id}`)}
           >
-            {filme.poster_url ? (
-              <img src={filme.poster_url} alt={filme.titulo} />
-            ) : (
-              <div className="filme-card-poster-vazio">{filme.titulo}</div>
-            )}
+            <div className="filme-card-poster-wrap">
+              {filme.poster_url ? (
+                <img src={filme.poster_url} alt={filme.titulo} />
+              ) : (
+                <div className="filme-card-poster-vazio">{filme.titulo}</div>
+              )}
+              <span className="filme-card-estreia-badge">Estreia</span>
+            </div>
             <p className="filme-card-titulo">{filme.titulo}</p>
             <p className="filme-card-ano">{filme.ano_lancamento}</p>
           </div>

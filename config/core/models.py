@@ -9,13 +9,27 @@ class Filme(models.Model):
     diretor = models.CharField(max_length=100)
     genero = models.CharField(max_length=50)
     duracao_minutos = models.IntegerField()
-    poster_imagem = models.CharField(max_length=100, blank=True)       # ref. imagem estatica (legado)
-    poster = models.ImageField(upload_to='posters/', blank=True, null=True)  # upload real
-    nota = models.IntegerField(default=0)                               # 0 = sem nota, 1-5 estrelas
+    poster_imagem = models.CharField(max_length=100, blank=True)
+    poster = models.ImageField(upload_to='posters/', blank=True, null=True)
+    nota = models.IntegerField(default=0)
+    is_estreia = models.BooleanField(default=False)
     data_cadastro = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return f"{self.titulo} ({self.ano_lancamento})"
+
+
+class Sessao(models.Model):
+    filme = models.ForeignKey(Filme, on_delete=models.CASCADE, related_name='sessoes')
+    horario = models.DateTimeField()
+    sala = models.CharField(max_length=50, default='Sala 1')
+    data_cadastro = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ['horario']
+
+    def __str__(self):
+        return f"{self.filme.titulo} - {self.horario.strftime('%d/%m %H:%M')} - {self.sala}"
 
 
 class Avaliacao(models.Model):

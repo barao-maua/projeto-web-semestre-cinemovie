@@ -22,7 +22,7 @@ export default function MeusFavoritos({ usuario }) {
     try {
       await api.delete(`/filmes/${filmeId}/desfavoritar/`)
       setFavoritos(prev => prev.filter(f => f.id !== filmeId))
-    } catch (_) {}
+    } catch (_) { /* empty */ }
   }
 
   if (carregando) return <div className="loading">Carregando...</div>

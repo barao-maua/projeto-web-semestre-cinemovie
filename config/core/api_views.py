@@ -3,7 +3,7 @@ from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
-from .models import Filme, Favorito
+from .models import Filme, Favorito, Sessao
 
 
 def _poster_url(filme):
@@ -18,6 +18,9 @@ def filme_para_dict(filme, usuario=None):
     is_favorito = False
     if usuario and usuario.is_authenticated:
         is_favorito = Favorito.objects.filter(usuario=usuario, filme=filme).exists()
+    sessoes = list(filme.sessoes.all().values('id', 'horario', 'sala'))
+    for s in sessoes:
+        s['horario'] = s['horario'].strftime('%Y-%m-%dT%H:%M:%S')
     return {
         'id': filme.pk,
         'titulo': filme.titulo,
@@ -27,8 +30,10 @@ def filme_para_dict(filme, usuario=None):
         'genero': filme.genero,
         'duracao_minutos': filme.duracao_minutos,
         'nota': filme.nota,
+        'is_estreia': filme.is_estreia,
         'poster_url': _poster_url(filme),
         'is_favorito': is_favorito,
+        'sessoes': sessoes,
     }
 
 
@@ -45,6 +50,96 @@ def api_filme_detalhe(request, filme_id):
     except Filme.DoesNotExist:
         return JsonResponse({'erro': 'Filme nao encontrado'}, status=404)
     return JsonResponse(filme_para_dict(filme, request.user))
+
+
+# ---------- SESSOES ----------
+
+def api_filme_sessoes(request, filme_id):
+    try:
+        filme = Filme.objects.get(pk=filme_id)
+    except Filme.DoesNotExist:
+        return JsonResponse({'erro': 'Filme nao encontrado'}, status=404)
+    sessoes = filme.sessoes.all().values('id', 'horario', 'sala')
+    sessoes_list = []
+    for s in sessoes:
+        s['horario'] = s['horario'].strftime('%Y-%m-%dT%H:%M:%S')
+        sessoes_list.append(s)
+    return JsonResponse(sessoes_list, safe=False)
+
+
+@csrf_exempt
+def api_admin_sessoes(request, filme_id):
+    negado = _requer_admin(request)
+    if negado:
+        return negado
+    try:
+        filme = Filme.objects.get(pk=filme_id)
+    except Filme.DoesNotExist:
+        return JsonResponse({'erro': 'Filme nao encontrado'}, status=404)
+
+    if request.method == 'GET':
+        sessoes = filme.sessoes.all().values('id', 'horario', 'sala')
+        sessoes_list = []
+        for s in sessoes:
+            s['horario'] = s['horario'].strftime('%Y-%m-%dT%H:%M:%S')
+            sessoes_list.append(s)
+        return JsonResponse(sessoes_list, safe=False)
+
+    if request.method == 'POST':
+        from datetime import datetime
+        horario_str = request.POST.get('horario', '').strip()
+        sala = request.POST.get('sala', 'Sala 1').strip()
+        if not horario_str:
+            return JsonResponse({'erro': 'Horario obrigatorio'}, status=400)
+        try:
+            horario = datetime.fromisoformat(horario_str)
+        except ValueError:
+            return JsonResponse({'erro': 'Formato de horario invalido'}, status=400)
+        sessao = Sessao.objects.create(filme=filme, horario=horario, sala=sala)
+        return JsonResponse({
+            'id': sessao.pk,
+            'horario': sessao.horario.strftime('%Y-%m-%dT%H:%M:%S'),
+            'sala': sessao.sala,
+            'mensagem': 'Sessao adicionada'
+        }, status=201)
+
+    return JsonResponse({'erro': 'Metodo nao permitido'}, status=405)
+
+
+@csrf_exempt
+def api_admin_sessao_detalhe(request, sessao_id):
+    negado = _requer_admin(request)
+    if negado:
+        return negado
+    try:
+        sessao = Sessao.objects.get(pk=sessao_id)
+    except Sessao.DoesNotExist:
+        return JsonResponse({'erro': 'Sessao nao encontrada'}, status=404)
+
+    if request.method == 'DELETE':
+        sessao.delete()
+        return JsonResponse({'mensagem': 'Sessao removida'})
+
+    if request.method == 'PUT':
+        from datetime import datetime
+        horario_str = request.POST.get('horario', '').strip()
+        sala = request.POST.get('sala', '').strip()
+        if horario_str:
+            try:
+                sessao.horario = datetime.fromisoformat(horario_str)
+            except ValueError:
+                return JsonResponse({'erro': 'Formato de horario invalido'}, status=400)
+        if sala:
+            sessao.sala = sala
+        sessao.save()
+        return JsonResponse({
+            'id': sessao.pk,
+            'horario': sessao.horario.strftime('%Y-%m-%dT%H:%M:%S'),
+            'sala': sessao.sala,
+            'mensagem': 'Sessao atualizada'
+        })
+
+    return JsonResponse({'erro': 'Metodo nao permitido'}, status=405)
 
 
 # ---------- FAVORITOS ----------
@@ -109,6 +204,7 @@ def api_admin_filmes(request):
         genero = request.POST.get('genero', '').strip()
         duracao = request.POST.get('duracao_minutos', '0').strip()
         nota = request.POST.get('nota', '0').strip()
+        is_estreia = request.POST.get('is_estreia', 'false').strip().lower() in ('true', '1', 'on')
         poster = request.FILES.get('poster')
 
         if not titulo or not sinopse or not ano or not genero:
@@ -129,6 +225,7 @@ def api_admin_filmes(request):
             genero=genero,
             duracao_minutos=duracao,
             nota=nota,
+            is_estreia=is_estreia,
             poster=poster,
         )
         return JsonResponse({'mensagem': 'Filme adicionado com sucesso', **filme_para_dict(filme)}, status=201)
@@ -147,7 +244,7 @@ def api_admin_filme_detalhe(request, filme_id):
     except Filme.DoesNotExist:
         return JsonResponse({'erro': 'Filme nao encontrado'}, status=404)
 
-    if request.method == 'PUT':
+    if request.method in ('PUT', 'POST'):
         titulo = request.POST.get('titulo', filme.titulo).strip()
         sinopse = request.POST.get('sinopse', filme.sinopse).strip()
         ano = request.POST.get('ano_lancamento', str(filme.ano_lancamento)).strip()
@@ -155,6 +252,7 @@ def api_admin_filme_detalhe(request, filme_id):
         genero = request.POST.get('genero', filme.genero).strip()
         duracao = request.POST.get('duracao_minutos', str(filme.duracao_minutos)).strip()
         nota = request.POST.get('nota', str(filme.nota)).strip()
+        is_estreia = request.POST.get('is_estreia', str(filme.is_estreia)).strip().lower() in ('true', '1', 'on')
         poster = request.FILES.get('poster')
 
         try:
@@ -165,6 +263,7 @@ def api_admin_filme_detalhe(request, filme_id):
             filme.genero = genero
             filme.duracao_minutos = int(duracao)
             filme.nota = max(0, min(5, int(nota)))
+            filme.is_estreia = is_estreia
             if poster:
                 filme.poster = poster
             filme.save()

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Filme, Avaliacao, Favorito
+from .models import Filme, Avaliacao, Favorito, Sessao
 
 
 @admin.register(Filme)
@@ -18,3 +18,9 @@ class AvaliacaoAdmin(admin.ModelAdmin):
 @admin.register(Favorito)
 class FavoritoAdmin(admin.ModelAdmin):
     list_display = ('usuario', 'filme', 'data_favoritado')
+
+
+@admin.register(Sessao)
+class SessaoAdmin(admin.ModelAdmin):
+    list_display = ('filme', 'horario', 'sala')
+    list_filter = ('filme', 'sala')

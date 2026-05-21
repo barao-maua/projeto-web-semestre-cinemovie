@@ -5,14 +5,14 @@ export default function Navbar({ usuario, setUsuario, isAdmin }) {
   const navigate = useNavigate()
 
   async function handleLogout() {
-    try { await api.post('/sair/') } catch (_) {}
+    try { await api.post('/sair/') } catch (_) { /* empty */ }
     setUsuario(null)
     navigate('/')
   }
 
   return (
     <nav className="navbar">
-      <Link to="/" className="navbar-logo">CineMovie</Link>
+      <Link to="/" className="navbar-logo"><span>Cine</span>Movie</Link>
 
       <div className="navbar-links">
         <Link to="/">Inicio</Link>

@@ -57,11 +57,13 @@ export default function Categorias() {
                 className="filme-card"
                 onClick={() => navigate(`/filme/${filme.id}`)}
               >
-                {filme.poster_url ? (
-                  <img src={filme.poster_url} alt={filme.titulo} />
-                ) : (
-                  <div className="filme-card-poster-vazio">{filme.titulo}</div>
-                )}
+                <div className="filme-card-poster-wrap">
+                  {filme.poster_url ? (
+                    <img src={filme.poster_url} alt={filme.titulo} />
+                  ) : (
+                    <div className="filme-card-poster-vazio">{filme.titulo}</div>
+                  )}
+                </div>
                 <p className="filme-card-titulo">{filme.titulo}</p>
               </div>
             ))}
