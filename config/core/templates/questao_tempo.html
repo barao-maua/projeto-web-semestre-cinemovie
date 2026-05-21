@@ -1,0 +1,85 @@
+{% load static %}   
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CineMovie - Questão de Tempo</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <header class="navbar">
+        <div class="logo">
+            CineMovie
+        </div>
+        <nav class="nav-links">
+            <a href="{% url 'index' %}">Início</a>
+            <a href="#" class="active">Filmes</a>
+            <a href="#">Séries</a>
+            <a href="#">Sobre nós</a>
+        </nav>
+        <div class="user-login">
+            <a href="{% url 'login' %}">Entrar</a>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <section class="movie-poster">
+            <img src="{% static 'images/image 12.png' %}" alt="Pôster do filme Questão de Tempo">
+        </section>
+
+        <section class="movie-info">
+            <p class="synopsis">
+                Um jovem odkrywa que pode viajar no tempo e muda seus dias para impressionar uma garota. Um filme romântico e comovente sobre o amor e a vida.
+                Duração: 123 min.            
+            </p>
+            <div class="movie-badges">
+                <span class="badge">Romance</span>
+                <span class="badge">Drama</span>
+                <span class="badge">Fantasia</span>
+            </div>
+
+            <div class="rating-box">
+                <span class="stars">★★★★☆</span><span class="stars-gray">★</span>
+                <span class="score">8.2/10</span>
+            </div>
+            <p class="duration">Duração: 123 min.</p>
+        </section>
+
+        <section class="movie-booking">
+            <h2 class="trailer-title">Questão de Tempo Trailer</h2>
+            
+            <a href="https://www.youtube.com/watch?v=-0gX9g4Lxm8" target="_blank" class="trailer-box">
+                <img src="{% static 'images/questao de tempo trailer.jpg' %}" alt="Trailer" class="trailer-img">
+            </a>
+            
+            <div class="booking-labels">
+                <span><strong>Horários disponíveis:</strong></span>
+                <span><strong>Compre Ingressos!</strong></span>
+            </div>
+
+            <div class="schedules-container">
+                <div class="schedule-row">
+                    <div class="time-pill">
+                        <span class="time">15:00</span>
+                        <span class="type">2D</span>
+                    </div>
+                    <button class="btn-buy">COMPRAR<br>AGORA!</button>
+                </div>
+                <div class="schedule-row">
+                    <div class="time-pill">
+                        <span class="time">19:00</span>
+                        <span class="type">2D</span>
+                    </div>
+                    <button class="btn-buy">COMPRAR<br>AGORA!</button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <p>Copyright © 2026 CineMovie.</p>
+    </footer>
+</body>
+</html>
